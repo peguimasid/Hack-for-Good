@@ -10,14 +10,14 @@ export default {
   async store(req, res) {
     const { id, title, description, url } = req.body;
 
-    await connection('news').insert({
+    const [noticeId] = await connection('news').insert({
       id,
       title,
       description,
       url,
     });
 
-    return res.status(200).json({ id, title, description, url });
+    return res.status(200).json({ noticeId, title, description, url });
   },
 
   async delete(req, res) {
@@ -25,6 +25,6 @@ export default {
 
     await connection('news').where('id', newsId).first().delete();
 
-    return res.status(204).json({ success: `news ${newsId} was deleted` });
+    return res.json({ success: `news with id: ${newsId} was deleted` });
   },
 };

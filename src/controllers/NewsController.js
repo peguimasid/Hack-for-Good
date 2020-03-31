@@ -10,14 +10,14 @@ export default {
   async store(req, res) {
     const { id, title, description, url } = req.body;
 
-    await connection('news').insert({
+    const [noticeId] = await connection('news').insert({
       id,
       title,
       description,
       url,
     });
 
-    return res.status(200).json({ id, title, description, url });
+    return res.status(200).json({ noticeId, title, description, url });
   },
 
   async delete(req, res) {

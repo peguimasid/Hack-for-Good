@@ -11,5 +11,6 @@ routes.delete('/news/delete/:newsId', NewsController.delete);
 
 routes.post('/fakenews', FakeNewsController.store);
 routes.get('/fakenews', FakeNewsController.index);
+routes.delete('/fakenews/delete/:fakeNewsId', FakeNewsController.delete);
 
 export default routes;

@@ -25,6 +25,6 @@ export default {
 
     await connection('news').where('id', newsId).first().delete();
 
-    return res.status(204).json({ success: `news ${newsId} was deleted` });
+    return res.json({ success: `news with id: ${newsId} was deleted` });
   },
 };

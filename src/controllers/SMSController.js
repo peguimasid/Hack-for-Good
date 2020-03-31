@@ -1,4 +1,4 @@
-import twillio from 'twilio';
+import Twilio from 'twilio';
 import * as Yup from 'yup';
 import connection from '../database/api';
 
@@ -13,20 +13,35 @@ class SMSController {
         .status(400)
         .json({ error: 'Validation fails', message: 'Celular inválido' });
     }
-    const { phone } = req.body;
 
-    await connection('messages_pass').where('phone', phone).update({
-      date_validated: new Date(),
-    });
+    try {
+      const { phone } = req.body;
 
-    const code = Math.floor(Math.random() * 111111 + 1) + 999999;
+      await connection('messages_pass').where('phone', phone).update({
+        date_validated: new Date(),
+      });
 
-    await connection('messages_pass').insert({
-      phone,
-      code,
-    });
+      const code = Math.floor(Math.random() * 111111 + 1) + 999999;
 
-    return res.sendStatus(201);
+      await connection('messages_pass').insert({
+        phone,
+        code,
+      });
+
+      const client = new Twilio(
+        process.env.SID_TWILIO,
+        process.env.TOKEN_TWILIO
+      );
+
+      await client.messages.create({
+        body: `Seu código de confirmação do VOLVLEM é: ${code}`,
+        from: '+1 313 651 7762',
+        to: `+55 ${phone}`,
+      });
+      return res.sendStatus(201);
+    } catch (error) {
+      return res.status(400).json({ error: error.message });
+    }
   }
 }
 

@@ -43,7 +43,7 @@ class SessionController {
         .select('*')
         .first();
 
-      let { id } = user === undefined ? '' : user.id;
+      let id = user === undefined ? '' : user.id;
 
       if (user === undefined || user.phone !== phone) {
         const idUser = await connection('users').insert({
@@ -55,9 +55,7 @@ class SessionController {
 
       return res.json({
         name,
-        token: jwt.sign({ id }, authConfig.secret, {
-          expiresIn: authConfig.expiresIn,
-        }),
+        token: jwt.sign({ id }, authConfig.secret),
       });
     } catch (error) {
       return res.status(401).json({

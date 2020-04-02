@@ -2,16 +2,17 @@ import connection from '../database/api';
 
 export default {
   async store(req, res) {
-    const { id, title, description, url } = req.body;
+    const { id, image, title, description, url } = req.body;
 
     const [fakenewsId] = await connection('fake_news').insert({
       id,
+      image,
       title,
       description,
       url,
     });
 
-    return res.json({ fakenewsId, title, description, url });
+    return res.json({ fakenewsId, image, title, description, url });
   },
 
   async index(req, res) {

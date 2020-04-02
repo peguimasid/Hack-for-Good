@@ -8,16 +8,17 @@ export default {
   },
 
   async store(req, res) {
-    const { id, title, description, url } = req.body;
+    const { id, image, title, description, url } = req.body;
 
     const [noticeId] = await connection('news').insert({
       id,
+      image,
       title,
       description,
       url,
     });
 
-    return res.status(200).json({ noticeId, title, description, url });
+    return res.status(200).json({ noticeId, image, title, description, url });
   },
 
   async delete(req, res) {

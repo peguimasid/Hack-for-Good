@@ -28,5 +28,6 @@ routes.delete('/fakenews/delete/:newsId', NewsController.delete);
 routes.post('/sms', SMSController.store);
 routes.post('/help', HelpController.store);
 routes.get('/help', HelpController.index);
+routes.delete('/help/:id', HelpController.delete);
 
 export default routes;

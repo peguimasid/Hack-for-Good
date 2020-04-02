@@ -16,8 +16,6 @@ routes.post('/code', CodeValidationController.store);
 
 routes.post('/sessions', SessionController.store);
 
-routes.use(authMiddleare);
-
 routes.post('/news', NewsController.store);
 routes.delete('/news/delete/:newsId', NewsController.delete);
 
@@ -25,7 +23,8 @@ routes.get('/fakenews', NewsController.index);
 routes.post('/fakenews', NewsController.store);
 routes.delete('/fakenews/delete/:newsId', NewsController.delete);
 
-routes.post('/sms', SMSController.store);
+routes.use(authMiddleare);
+
 routes.post('/help', HelpController.store);
 routes.get('/help', HelpController.index);
 routes.delete('/help/:id', HelpController.delete);

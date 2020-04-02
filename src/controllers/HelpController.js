@@ -60,6 +60,24 @@ class HelpController {
       });
     }
   }
+
+  async delete(req, res) {
+    const { id } = req.params;
+    const user_id = req.userId;
+
+    const user = await connection('help').where({ user_id, id }).select('*');
+
+    if (!user) {
+      return res.status(401).json({
+        error: 'Help not find or user not permitted',
+        message: 'Erro ao excluir',
+      });
+    }
+
+    await connection('help').where({ id }).delete();
+
+    return res.sendStatus(204);
+  }
 }
 
 export default new HelpController();

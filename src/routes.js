@@ -23,5 +23,6 @@ routes.delete('/news/delete/:newsId', NewsController.delete);
 
 routes.post('/help', HelpController.store);
 routes.get('/help', HelpController.index);
+routes.delete('/help/:id', HelpController.delete);
 
 export default routes;

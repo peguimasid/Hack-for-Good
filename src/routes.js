@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import NewsController from './controllers/NewsController';
+import FakeNewsController from './controllers/FakeNewsController';
 import SMSController from './controllers/SMSController';
 import CodeValidationController from './controllers/CodeValidationController';
 import SessionController from './controllers/SessionController';
@@ -19,9 +20,9 @@ routes.post('/sessions', SessionController.store);
 routes.post('/news', NewsController.store);
 routes.delete('/news/delete/:newsId', NewsController.delete);
 
-routes.get('/fakenews', NewsController.index);
-routes.post('/fakenews', NewsController.store);
-routes.delete('/fakenews/delete/:newsId', NewsController.delete);
+routes.get('/fakenews', FakeNewsController.index);
+routes.post('/fakenews', FakeNewsController.store);
+routes.delete('/fakenews/delete/:newsId', FakeNewsController.delete);
 
 routes.use(authMiddleare);
 

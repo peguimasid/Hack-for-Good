@@ -16,7 +16,16 @@ export default {
   },
 
   async index(req, res) {
-    const fakeNews = await connection('fake_news').select('*');
+    const { page = 1 } = req.query;
+
+    const [count] = await connection('fake_news').count();
+
+    const fakeNews = await connection('fake_news')
+      .limit(5)
+      .offset((page - 1) * 5)
+      .select('*');
+
+    res.header('X-Total-Count', count['count(*)']);
 
     return res.json(fakeNews);
   },

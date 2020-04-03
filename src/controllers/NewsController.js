@@ -2,7 +2,16 @@ import connection from '../database/api';
 
 export default {
   async index(req, res) {
-    const news = await connection('news').select('*');
+    const { page = 1 } = req.query;
+
+    const [count] = await connection('news').count();
+
+    const news = await connection('news')
+      .limit(5)
+      .offset((page - 1) * 5)
+      .select('*');
+
+    res.header('X-Total-Count', count['count(*)']);
 
     return res.json(news);
   },

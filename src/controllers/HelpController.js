@@ -7,7 +7,11 @@ class HelpController {
     try {
       const { latitude, longitude } = req.query;
 
+      const { page = 1 } = req.query;
+
       const helps = await connection('help')
+        .limit(5)
+        .offset((page - 1) * 5)
         .where(
           connection.raw(
             `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0)`
@@ -21,6 +25,19 @@ class HelpController {
             `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0) as distance`
           )
         );
+
+      const count = await connection('help')
+        .where(
+          connection.raw(
+            `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0)`
+          ),
+          '<=',
+          10
+        )
+        .select('*')
+        .count();
+
+      res.header('X-Total-Count', count[0]['count(*)']);
 
       return res.json(helps);
     } catch (error) {

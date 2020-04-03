@@ -24,7 +24,7 @@ class CodeValidationController {
         .first();
 
       if (!message_pass) {
-        return res.json({
+        return res.status(401).json({
           error: 'Code not validated',
           message: 'O código não pôde ser validado ou já foi utilizado',
         });

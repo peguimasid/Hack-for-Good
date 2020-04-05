@@ -76,7 +76,7 @@ class HelpController {
       return res.json({ id, title, description });
     } catch (error) {
       return res.status(401).json({
-        error: `${req.userId}`,
+        error: 'Help not inserted',
         message: 'Problema ao cadastrar a solicitação',
       });
     }

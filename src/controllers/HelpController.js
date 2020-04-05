@@ -57,6 +57,7 @@ class HelpController {
       title: Yup.string().required(),
       description: Yup.string().required(),
       longitude: Yup.string().required(),
+      latitude: Yup.string().required(),
     });
     if (!(await schema.validate(req.body))) {
       return res.status(400).json({ error: 'Validation fails' });
@@ -64,13 +65,12 @@ class HelpController {
     try {
       const { title, description, latitude, longitude } = req.body;
       const user_id = req.userId;
-
       const [id] = await connection('help').insert({
         title,
         description,
         latitude,
         longitude,
-        user_id,
+        user_id: user_id[0],
       });
 
       return res.json({ id, title, description });

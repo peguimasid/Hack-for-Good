@@ -8,6 +8,7 @@ import SessionController from './controllers/SessionController';
 
 import authMiddleare from './middlewares/auth';
 import HelpController from './controllers/HelpController';
+import ChatTwilioController from './controllers/ChatTwilioController';
 
 const routes = new Router();
 
@@ -29,5 +30,7 @@ routes.use(authMiddleare);
 routes.post('/help', HelpController.store);
 routes.get('/help', HelpController.index);
 routes.delete('/help/:id', HelpController.delete);
+
+routes.get('/auth', ChatTwilioController.index);
 
 export default routes;

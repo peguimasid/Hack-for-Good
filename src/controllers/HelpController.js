@@ -21,7 +21,7 @@ class HelpController {
           10
         )
         .select(
-          '*',
+          ['help.*', 'users.name', 'users.phone'],
           connection.raw(
             `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0) as distance`
           )

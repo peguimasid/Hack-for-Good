@@ -13,6 +13,7 @@ class HelpController {
         .join('users', 'users.id', '=', 'help.user_id')
         .limit(5)
         .offset((page - 1) * 5)
+        .orderBy('help.id', 'desc')
         .where(
           connection.raw(
             `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0)`

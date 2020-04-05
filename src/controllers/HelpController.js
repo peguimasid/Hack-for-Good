@@ -10,6 +10,7 @@ class HelpController {
       const { page = 1 } = req.query;
 
       const helps = await connection('help')
+        .join('users', 'user.id', '=', 'help.user_id')
         .limit(5)
         .offset((page - 1) * 5)
         .where(
@@ -20,7 +21,7 @@ class HelpController {
           10
         )
         .select(
-          '*',
+          ['help.*', 'users.name', 'users.phone'],
           connection.raw(
             `round(((${latitude} - latitude) * (${latitude} - latitude) + (${longitude} - longitude) * (${longitude} - longitude) * 6371),0) as distance`
           )

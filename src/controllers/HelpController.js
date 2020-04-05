@@ -10,7 +10,7 @@ class HelpController {
       const { page = 1 } = req.query;
 
       const helps = await connection('help')
-        .join('users', 'user.id', '=', 'help.user_id')
+        .join('users', 'users.id', '=', 'help.user_id')
         .limit(5)
         .offset((page - 1) * 5)
         .where(

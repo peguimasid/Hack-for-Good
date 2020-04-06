@@ -70,7 +70,7 @@ class HelpController {
         description,
         latitude,
         longitude,
-        user_id: user_id[0],
+        user_id: user_id[0] ? user_id[0] : user_id,
       });
 
       return res.json({ id, title, description });

@@ -23,7 +23,7 @@ routes.delete('/news/delete/:newsId', NewsController.delete);
 
 routes.get('/fakenews', FakeNewsController.index);
 routes.post('/fakenews', FakeNewsController.store);
-routes.delete('/fakenews/delete/:newsId', FakeNewsController.delete);
+routes.delete('/fakenews/delete/:fakeNewsId', FakeNewsController.delete);
 
 routes.use(authMiddleare);
 

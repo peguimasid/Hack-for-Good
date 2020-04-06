@@ -34,7 +34,7 @@ class SMSController {
       );
 
       await client.messages.create({
-        body: `Seu código de confirmação do VOLVLEM é: ${code}`,
+        body: `Seu código de confirmação do Conecte|ME é: ${code}`,
         from: '+1 313 651 7762',
         to: `+55 ${phone}`,
       });
